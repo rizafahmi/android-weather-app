@@ -34,8 +34,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onResponse(Call arg0, Response response) throws IOException {
 				try {
+					Log.v(TAG, response.body().string());
 					if (response.isSuccessful()) {
-						Log.v(TAG, response.body().string());
+						
+					} else {
+						alertUserAboutError();
 					}
 				} catch (IOException e) {
 					Log.e(TAG, "Exception caught: ", e);
@@ -50,6 +53,13 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		
+	}
+
+	protected void alertUserAboutError() {
+		
+		AlertDialogFragment alertDialog = new AlertDialogFragment();
+		alertDialog.show(getFragmentManager(), "Error");
 		
 	}
 }

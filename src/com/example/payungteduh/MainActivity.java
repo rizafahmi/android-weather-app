@@ -87,6 +87,8 @@ public class MainActivity extends Activity {
 		currentWeather.setIcon(currently.getString("icon"));
 		currentWeather.setTime(currently.getLong("time"));
 		currentWeather.setTemperature(currently.getDouble("temperature"));
+		currentWeather.setTimezone(timezone);
+		
 		
 		return currentWeather;
 	}

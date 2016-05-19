@@ -1,6 +1,6 @@
 package com.example.payungteduh;
 
-public class WeatherModel {
+public class CurrentWeather {
 	private String mIcon;
 	private long mTime;
 	private double mTemperature;

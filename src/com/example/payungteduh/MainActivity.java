@@ -80,7 +80,15 @@ public class MainActivity extends Activity {
 		String timezone = forecast.getString("timezone");
 		Log.i(TAG, "From JSON: " + timezone);
 		
-		return null;
+		JSONObject currently = forecast.getJSONObject("currently");
+		
+		CurrentWeather currentWeather = new CurrentWeather();
+		currentWeather.setSummary(currently.getString("summary"));
+		currentWeather.setIcon(currently.getString("icon"));
+		currentWeather.setTime(currently.getLong("time"));
+		currentWeather.setTemperature(currently.getDouble("temperature"));
+		
+		return currentWeather;
 	}
 
 	private boolean isNetworkIsAvailable() {

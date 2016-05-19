@@ -26,6 +26,10 @@ public final class R {
         public static final int sunny=0x7f02000c;
         public static final int wind=0x7f02000d;
     }
+    public static final class id {
+        public static final int degreeImageView=0x7f060001;
+        public static final int temperatureTextView=0x7f060000;
+    }
     public static final class layout {
         public static final int activity_main=0x7f030000;
     }

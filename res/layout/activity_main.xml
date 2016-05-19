@@ -2,11 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFB302"
     tools:context="${relativePackage}.${activityClass}" >
 
     <TextView
+        android:id="@+id/temperatureTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="100"
+        android:textColor="#fff"
+        android:textSize="150sp" />
+
+    <ImageView
+        android:id="@+id/degreeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/temperatureTextView"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@+id/temperatureTextView"
+        android:src="@drawable/degree" />
 
 </RelativeLayout>

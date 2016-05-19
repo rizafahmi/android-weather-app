@@ -2,6 +2,9 @@ package com.example.payungteduh;
 
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ResolveInfo;
@@ -21,6 +24,7 @@ import okhttp3.Response;
 public class MainActivity extends Activity {
 	
 	private final String TAG = MainActivity.class.getSimpleName();
+	private CurrentWeather mCurrentWeather = new CurrentWeather();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +32,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		if (isNetworkIsAvailable()) {
-		
-			String forecastUrl = "http://api.openweathermap.org/data/2.5/weather?q=Ciledug&APPID=b15b9835567a918fbec1d1c6e67f347a";
+			double lat = -7.01;
+			double lng = 108.77;
+			String API_KEY = "be8ef7ce626a197a46bb0c9e542bc746";
+			
+			String forecastUrl = "https://api.forecast.io/forecast/" + API_KEY + "/" + lat + "," + lng;
 			
 			OkHttpClient client = new OkHttpClient();
 			Request request = new Request.Builder().url(forecastUrl).build();
@@ -40,13 +47,16 @@ public class MainActivity extends Activity {
 				@Override
 				public void onResponse(Call arg0, Response response) throws IOException {
 					try {
-						Log.v(TAG, response.body().string());
+						String jsonData = response.body().string();
+						Log.v(TAG, jsonData);
 						if (response.isSuccessful()) {
-							
+							mCurrentWeather = getCurrentDetails(jsonData);
 						} else {
 							alertUserAboutError();
 						}
 					} catch (IOException e) {
+						Log.e(TAG, "Exception caught: ", e);
+					} catch (JSONException e) {
 						Log.e(TAG, "Exception caught: ", e);
 					}
 					
@@ -64,6 +74,15 @@ public class MainActivity extends Activity {
 		}
 	}
 		
+	protected CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
+		JSONObject forecast = new JSONObject(jsonData);
+		
+		String timezone = forecast.getString("timezone");
+		Log.i(TAG, "From JSON: " + timezone);
+		
+		return null;
+	}
+
 	private boolean isNetworkIsAvailable() {
 		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mNetworkInfo = manager.getActiveNetworkInfo();
